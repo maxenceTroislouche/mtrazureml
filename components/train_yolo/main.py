@@ -1,0 +1,1 @@
+print("Salut, je suis Train Yolo !")

@@ -1,0 +1,12 @@
+$schema: https://azuremlschemas.azureedge.net/latest/commandComponent.schema.json
+name: train_yolo
+display_name: YOLO Training Component
+description: A component to train YOLOv5 model using Ultralytics.
+version: 1.0
+type: command
+code: .
+environment:
+  image: mcr.microsoft.com/azureml/openmpi4.1.0-ubuntu20.04
+  conda_file: conda_env.yml
+command: >
+  python main.py
