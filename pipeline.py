@@ -3,12 +3,14 @@ from azure.ai.ml.dsl import pipeline
 from azure.identity import DefaultAzureCredential
 from azureml.core.environment import Environment
 
-from azure_utils import get_or_create_resource_group, get_or_create_workspace, get_or_create_compute
+from azure_utils import get_or_create_resource_group, get_or_create_workspace, get_or_create_compute, \
+    get_or_create_container_registry
 
 # Configuration
 subscription_id = "6c07bf15-eea9-4a31-9510-986d8a14c19c"
-resource_group_name = "mtrazureml"
-workspace_name = "mtrazureml"
+resource_group_name = "waldone_pipeline"
+workspace_name = "waldone_pipeline"
+registry_name = "waldonecontainerregistry"
 location = "westeurope"
 compute_name = "cpu-cluster"
 
@@ -26,6 +28,9 @@ workspace = get_or_create_workspace(ml_client, workspace_name, location)
 
 # 5. Vérifier ou créer le compute target
 compute_target = get_or_create_compute(ml_client, compute_name)
+
+# 5bis. Vérifier ou créer un container registry
+registry = get_or_create_container_registry(credential, subscription_id, resource_group_name, registry_name, location)
 
 # 6. Définir les environnements
 env = Environment.from_conda_specification(name="yolo-env", file_path="components/train_yolo/conda_env.yml")

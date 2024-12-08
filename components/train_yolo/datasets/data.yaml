@@ -1,0 +1,13 @@
+train: ../../mtrazureml/components/train_yolo/datasets/train/images
+val: ../../mtrazureml/components/train_yolo/datasets/valid/images
+test: ../../mtrazureml/components/train_yolo/datasets/test/images
+
+nc: 1
+names: ['waldo']
+
+roboflow:
+  workspace: choochoovision
+  project: whereiswaldo-3
+  version: 1
+  license: CC BY 4.0
+  url: https://universe.roboflow.com/choochoovision/whereiswaldo-3/dataset/1

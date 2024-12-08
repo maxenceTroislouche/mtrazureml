@@ -1,5 +1,7 @@
 from azure.ai.ml.entities import Workspace, AmlCompute
 from azure.core.exceptions import ResourceNotFoundError
+from azure.mgmt.containerregistry import ContainerRegistryManagementClient
+from azure.mgmt.containerregistry.models import Registry, Sku
 from azure.mgmt.resource import ResourceManagementClient
 
 
@@ -45,3 +47,18 @@ def get_or_create_compute(ml_client, compute_name):
         compute_target = ml_client.compute.begin_create_or_update(compute_target).result()
 
     return compute_target
+
+
+def get_or_create_container_registry(credential, subscription_id, resource_group_name, registry_name, location):
+    acr_client = ContainerRegistryManagementClient(credential, subscription_id)
+
+    try:
+        return acr_client.registries.get(resource_group_name, registry_name)
+    except ResourceNotFoundError:
+        registry_params = Registry(
+            location=location,
+            sku=Sku(name="Basic"),
+            admin_user_enabled=True
+        )
+        registry = acr_client.registries.begin_create(resource_group_name, registry_name, registry_params).result()
+        return registry

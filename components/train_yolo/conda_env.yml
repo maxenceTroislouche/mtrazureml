@@ -1,10 +1,8 @@
 name: yolo_env
 dependencies:
-  - python=3.10
+  - python=3.12
   - ncurses
   - pip:
       - ultralytics
-      - azureml-sdk
+      - azureml-core
       - azure-ai-ml
-      - torch
-      - torchvision

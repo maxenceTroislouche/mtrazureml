@@ -5,8 +5,12 @@ description: A component to train YOLOv5 model using Ultralytics.
 version: 1.0
 type: command
 code: .
+outputs:
+  output_dir:
+    type: uri_folder
+    description: Répertoire où le modèle entrainé sera sauvegardé
 environment:
   image: mcr.microsoft.com/azureml/openmpi4.1.0-ubuntu20.04
   conda_file: conda_env.yml
 command: >
-  python main.py
+  python main.py --output_dir {outputs.output_dir}
